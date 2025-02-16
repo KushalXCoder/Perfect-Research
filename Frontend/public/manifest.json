@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "My React Chrome Extension",
+  "version": "1.0",
+  "description": "A simple Chrome extension using React and Tailwind.",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "vite.svg"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"]
+}
