@@ -43,7 +43,7 @@ const Popup = () => {
     localStorage.setItem("publisher", name);
 
     try {
-        const response = await axios.post('http://localhost:3000/search', {publisher: name});
+        const response = await axios.post('https://perfect-research-1.onrender.com/search', {publisher: name});
 
         if(response.data.response.length === 0) {
             setHIndex("0");
