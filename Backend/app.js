@@ -13,24 +13,24 @@ app.get('/', (req, res) => {
     res.status(200).send("Hello World");
 })
 
-app.post('/search', async (req,res) => {
-    const {publisher} = req.body;
+app.post('/search', async (req, res) => {
+  const { publisher } = req.body;
+  console.log("🔍 Received publisher:", publisher);
 
-    if(!publisher) {
-        res.status(400).send({message: "Publisher name not found"});
-    }
+  if (!publisher) {
+    return res.status(400).send({ message: "Publisher name is required" });
+  }
 
-    try {
-        const response = await fetchPublisherData(publisher);
-        if (!response) {
-          return res.status(404).send({ message: "No data found for this publisher" });
-        }
-        res.status(200).send({response});
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({message: "Error finding data"});
-    }
-})
+  try {
+    const response = await fetchPublisherData(publisher);
+    console.log("✅ Scraped response:", response);
+
+    res.status(200).send({ response });
+  } catch (error) {
+    console.error("❌ Error in fetchPublisherData:", error);
+    res.status(500).send({ message: "Error finding data", error: error.message });
+  }
+});
 
 app.listen(PORT, () => {
     console.log(`Example app listening on PORT ${PORT}`);
