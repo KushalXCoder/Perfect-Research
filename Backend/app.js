@@ -17,15 +17,18 @@ app.post('/search', async (req,res) => {
     const {publisher} = req.body;
 
     if(!publisher) {
-        res.status(401).send({message: "Publisher name not found"});
+        res.status(400).send({message: "Publisher name not found"});
     }
 
     try {
         const response = await fetchPublisherData(publisher);
+        if (!response) {
+          return res.status(404).send({ message: "No data found for this publisher" });
+        }
         res.status(200).send({response});
     } catch (error) {
         console.log(error);
-        res.status(401).send({message: "Error finding data"});
+        res.status(500).send({message: "Error finding data"});
     }
 })
 
