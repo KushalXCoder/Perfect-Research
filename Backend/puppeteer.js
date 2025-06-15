@@ -4,7 +4,7 @@ export async function fetchPublisherData(publisherName) {
     const searchQuery = encodeURIComponent(publisherName);  // Converts spaces to +
     const searchURL = `https://scholar.google.com/citations?hl=en&view_op=search_venues&vq=${searchQuery}&btnG=`;
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: false });
     const page = await browser.newPage();
     await page.goto(searchURL, { waitUntil: 'networkidle2' });
 
